@@ -1,0 +1,39 @@
+{
+    "trivia": [
+        {
+            "question": "How many hearts does an octopus have? (Please spell out the number)",
+            "check": "three",
+            "IncorrectAnswer": "That answer is a stretch... even for an octopus. An octopus has three hearts. Next Question"
+        },
+        {
+            "question": "What color do hippos sweat?",
+            "check": "pink",
+            "IncorrectAnswer": "That answer was a hippo-thetical guess… and a wrong one! Hippos sweat pink!"
+        },
+        {
+            "question": "what is the fastest bird alive?",
+            "check": "peregrine falcon",
+            "IncorrectAnswer": "That answer was for the birds. The fastest bird alive is the peregrine falcon."
+        },
+        {
+            "question": "What color is the blood of an octopus?",
+            "check": "blue",
+            "IncorrectAnswer": "You're grasping ta eight straws and still missed! An octopus bleeds blue."
+        },
+        {
+            "question": "True or False. Snakes have eyelids.",
+            "check": "false",
+            "IncorrectAnswer": "Sssssorry, thats not quite right. Snakes have an an ocular scale that protects their eyes."
+        },
+        {
+            "question": "True or False. A shrimp's heart is in its head.",
+            "check": "true",
+            "IncorrectAnswer": "You shrimply got that wrong :( Its true, their heart is in their head!"
+        }
+    ],
+    "end": [
+        {
+            "message": "You're too smart! We're all out of questions!"
+        }
+    ]
+}

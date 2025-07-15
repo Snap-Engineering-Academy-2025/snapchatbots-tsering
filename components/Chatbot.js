@@ -7,24 +7,23 @@ import {
   Pressable,
 } from "react-native";
 import { Themes } from "../assets/Themes";
-import { millisToMinutesAndSeconds } from "../utils";
 import { useNavigation } from "@react-navigation/native";
 
-const SongArtists = ({ SongArtists }) => {
+const DevName = ({ DevName }) => {
   return (
-    <Text style={styles.songArtists} numberOfLines={1}>
-      {SongArtists.map(({ name }) => `${name}`).join(", ")}
+    <Text style={styles.devNames} numberOfLines={1}>
+      {/* {DevName.map(({ name }) => `${name}`).join(", ")} */}
+      {DevName}
     </Text>
   );
 };
 
-const Song = ({
+const Chat = ({
   index,
   imageUrl,
-  songTitle,
-  songArtists,
-  albumName,
-  duration,
+  chatTitle,
+  devName,
+  chatName,
 }) => {
   const navigation = useNavigation();
 
@@ -33,27 +32,24 @@ const Song = ({
       onPress={() =>
         navigation.navigate("ChatScreen", {
           // this is a "quick and dirty" hack for the moment, we'll want to rename our properties later
-          chatbotName: albumName,
+          chatbotName: chatName,
         })
       }
     >
-      <View style={styles.song}>
+      <View style={styles.chat}>
         <Text style={styles.index}>{index + 1}</Text>
         <Image
-          style={[styles.image, styles.albumCover]}
+          style={[styles.image, styles.chatImage]}
           source={{ uri: imageUrl }}
         />
-        <View style={styles.songArtistContainer}>
-          <Text style={[styles.songTitle]} numberOfLines={1}>
-            {songTitle}
+        <View style={styles.devNameContainer}>
+          <Text style={[styles.chatTitle]} numberOfLines={1}>
+            {chatTitle}
           </Text>
-          <SongArtists SongArtists={songArtists} />
+          <DevName DevName={devName} />
         </View>
-        <Text style={[styles.albumName]} numberOfLines={1}>
-          {albumName}
-        </Text>
-        <Text style={[styles.duration]} numberOfLines={1}>
-          {millisToMinutesAndSeconds(duration)}
+        <Text style={[styles.chatName]} numberOfLines={1}>
+          {chatName}
         </Text>
       </View>
     </Pressable>
@@ -61,7 +57,7 @@ const Song = ({
 };
 
 const styles = StyleSheet.create({
-  song: {
+  chat: {
     display: "flex",
     flexDirection: "row",
     padding: 5,
@@ -76,36 +72,30 @@ const styles = StyleSheet.create({
     fontSize: 12,
     margin: 1,
   },
-  albumCover: {
+  chatImage: {
     resizeMode: "contain",
     flex: 0.2,
     width: 50,
     height: 50,
   },
-  songArtistContainer: {
+  devNameContainer: {
     flex: 0.4,
     margin: 5,
   },
-  songTitle: {
+  chatTitle: {
     color: Themes.colors.white,
     fontSize: 12,
   },
-  songArtists: {
+  devNames: {
     color: Themes.colors.gray,
     fontSize: 12,
   },
-  albumName: {
+  chatName: {
     color: Themes.colors.white,
     flex: 0.25,
     fontSize: 12,
     margin: 5,
   },
-  duration: {
-    color: Themes.colors.gray,
-    flex: 0.1,
-    fontSize: 12,
-    margin: 5,
-  },
 });
 
-export default Song;
+export default Chat;
