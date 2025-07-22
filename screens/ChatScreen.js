@@ -5,13 +5,21 @@ import BasicChatbot from "../components/BasicChatbot";
 import BakersChatbot from "../components/BakersChatbot";
 import CohortChatbot from "../components/CohortChatbot";
 import ChristineChatbot from "../components/ChristineChatbot";
+import SixFlagsSnapChatbot from "../components/SixFlagsSnapChatbot";
 
 // prettier-ignore
 export const CHATBOTS = {
+  "SixFlagsSnapChatbot": {
+    id: "SixFlagsSnapChatbot",
+    name: "SixFlags and Snap!",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1bIuA8zrvAigH1xJAE-cux82_qgkoahX8",
+    developer: "Tsering and Alina",
+    component: SixFlagsSnapChatbot,
+  },
   "BasicChatbot": {
     id: "BasicChatbot",
-    name: "React Native Chatbot",
-    imageUrl: "https://loremflickr.com/140/140",
+    name: "Valorant",
+    imageUrl: "https://i.pinimg.com/736x/51/d6/de/51d6def892f689d44a7ab1db6b090715.jpg",
     developer: "Developer",
     component: BasicChatbot,
   },
@@ -35,7 +43,7 @@ export const CHATBOTS = {
     imageUrl: "https://previews.123rf.com/images/azuzl/azuzl2205/azuzl220500064/185561606-underwater-world-simple-square-background-with-the-stones-sponges-corals-color-variation-for.jpg",
     developer: "Christine",
     component: ChristineChatbot,
-  }
+  },
 };
 
 export default function ChatScreen({ route }) {

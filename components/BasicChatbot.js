@@ -2,31 +2,50 @@ import React, { useState, useCallback, useEffect } from "react";
 import { GiftedChat } from "react-native-gifted-chat";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, SafeAreaView, Platform } from "react-native";
+import { getChat } from "../utils/getChatGPT";
 
 const CHATBOT_USER_OBJ = {
   _id: 2,
-  name: "React Native Chatbot",
-  avatar: "https://loremflickr.com/140/140",
+  name: "Valorant",
+  avatar: "https://static.wikia.nocookie.net/valorant/images/8/80/Valorant_Cover_Art.jpg/revision/latest?cb=20220827194300",
+  role: "assistant"
 };
+
+const prompt = [
+  {
+    role: "system",
+    content: `
+`
+  },
+];
 
 export default function BasicChatbot() {
   const [messages, setMessages] = useState([]);
 
+  let APIFriendlyMessages = messages.map(msg => ({
+    role: msg.user.role,
+    content: msg.text
+  }));
+
+  APIFriendlyMessages.reverse();
+
+  const convo = [...prompt, ...APIFriendlyMessages];
+
+  async function fetchInitialMessage() {
+    const response = await getChat(prompt);
+    const message = response.choices[0].message;
+    // console.log("message: ", message);
+    const content = response.choices[0].message.content;
+    // console.log("content: ", content);
+    addBotMessage(content);
+  }
+
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: "Hello, welcome to simple trivia! Say 'Yes' when you're ready to play!",
-        createdAt: new Date(),
-        user: CHATBOT_USER_OBJ,
-      },
-    ]);
+    fetchInitialMessage();
   }, []);
 
   const addNewMessage = (newMessages) => {
     setMessages((previousMessages) => {
-      // console.log("PREVIOUS MESSAGES:", previousMessages);
-      // console.log("NEW MESSAGE:", newMessages);
       return GiftedChat.append(previousMessages, newMessages);
     });
   };
@@ -42,17 +61,31 @@ export default function BasicChatbot() {
     ]);
   };
 
+  async function fetchMessage() {
+    const response = await getChat(convo);
+
+    const content = response.choices[0].message.content;
+    addBotMessage(content);
+  }
+
   const respondToUser = (userMessages) => {
     console.log("User message text:", userMessages[0].text);
+    let userMsgReform = {
+      role: userMessages[0].user.role,
+      content: userMessages[0].text
+    }
 
-    // Simple chatbot logic (aka Checkpoint 2 onwards) here!
-
-    addBotMessage("I am da response!");
+    convo.push(userMsgReform);
+    fetchMessage();
   };
 
   const onSend = useCallback((messages = []) => {
     addNewMessage(messages);
   }, []);
+
+
+
+  // console.log("this is the correct array:", APIFriendlyMessages);
 
   return (
     <GiftedChat
@@ -63,7 +96,8 @@ export default function BasicChatbot() {
       }}
       user={{
         _id: 1,
-        name: "Baker",
+        name: "Username",
+        role: "user"
       }}
       renderUsernameOnMessage={true}
     />
